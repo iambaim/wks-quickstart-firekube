@@ -2,60 +2,97 @@ apiVersion: v1
 items:
 - apiVersion: v1
   data:
-    password.txt: cGFzczEyMwo=
+    password.txt: cGFzczEyMw==
   kind: Secret
   metadata:
     annotations:
       kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"v1","data":{"password.txt":"cGFzczEyMwo="},"kind":"Secret","metadata":{"annotations":{},"name":"mysql-pass-97gbt5mbb6","namespace":"default"},"type":"Opaque"}
-    name: mysql-pass-97gbt5mbb6
+        {"apiVersion":"v1","data":{"password.txt":"cGFzczEyMw=="},"kind":"Secret","metadata":{"annotations":{},"name":"mysql-pass-t879tkhghc","namespace":"default"},"type":"Opaque"}
+    name: mysql-pass-t879tkhghc
     namespace: default
   type: Opaque
 - apiVersion: v1
   kind: Service
   metadata:
     annotations:
+      fluxcd.io/sync-checksum: 9a9de6478a5e3170c18970cead4a36b0b273e47e
       kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"wordpress"},"name":"wordpress-mysql","namespace":"default"},"spec":{"clusterIP":"None","ports":[{"port":3306}],"selector":{"app":"wordpress","tier":"mysql"}}}
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{"fluxcd.io/sync-checksum":"9a9de6478a5e3170c18970cead4a36b0b273e47e"},"labels":{"app":"wordpress","fluxcd.io/sync-gc-mark":"sha256.Uuw2sadr2E2Xa86tU1CMzFS9XoZTdmCQiAiDBN03ccY"},"name":"wordpress-mysql","namespace":"default"},"spec":{"clusterIP":"None","ports":[{"port":3306}],"selector":{"app":"wordpress","tier":"mysql"}}}
+    creationTimestamp: "2020-12-29T14:53:51Z"
     labels:
       app: wordpress
+      fluxcd.io/sync-gc-mark: sha256.Uuw2sadr2E2Xa86tU1CMzFS9XoZTdmCQiAiDBN03ccY
     name: wordpress-mysql
     namespace: default
+    resourceVersion: "4521"
+    selfLink: /api/v1/namespaces/default/services/wordpress-mysql
+    uid: 068b7bec-1d9e-4fe4-a0d1-8508e8120ff8
   spec:
     clusterIP: None
     ports:
     - port: 3306
+      protocol: TCP
+      targetPort: 3306
     selector:
       app: wordpress
       tier: mysql
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}
 - apiVersion: v1
   kind: Service
   metadata:
     annotations:
+      fluxcd.io/sync-checksum: c2b0be405fb1f1485dcae54d4ea686a5e1e8ce59
       kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"wordpress"},"name":"wordpress","namespace":"default"},"spec":{"ports":[{"port":80}],"selector":{"app":"wordpress","tier":"frontend"},"type":"NodePort"}}
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{"fluxcd.io/sync-checksum":"c2b0be405fb1f1485dcae54d4ea686a5e1e8ce59"},"labels":{"app":"wordpress","fluxcd.io/sync-gc-mark":"sha256.j__6WEyP_6VFHkrNd4G3sLUpNeYbBpKkwqKYCD_62wA"},"name":"wordpress","namespace":"default"},"spec":{"ports":[{"port":80}],"selector":{"app":"wordpress","tier":"frontend"},"type":"NodePort"}}
+    creationTimestamp: "2020-12-29T14:53:51Z"
     labels:
       app: wordpress
+      fluxcd.io/sync-gc-mark: sha256.j__6WEyP_6VFHkrNd4G3sLUpNeYbBpKkwqKYCD_62wA
     name: wordpress
     namespace: default
+    resourceVersion: "4518"
+    selfLink: /api/v1/namespaces/default/services/wordpress
+    uid: 91a92ee1-d97b-46ae-bdf3-cc7751d67a38
   spec:
+    clusterIP: 10.99.231.164
+    externalTrafficPolicy: Cluster
     ports:
-    - port: 80
+    - nodePort: 31255
+      port: 80
+      protocol: TCP
+      targetPort: 80
     selector:
       app: wordpress
       tier: frontend
+    sessionAffinity: None
     type: NodePort
+  status:
+    loadBalancer: {}
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
     annotations:
+      deployment.kubernetes.io/revision: "1"
+      fluxcd.io/sync-checksum: 3059d092e868bfe2363e6d2d29a68672c9983183
       kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"wordpress"},"name":"wordpress-mysql","namespace":"default"},"spec":{"selector":{"matchLabels":{"app":"wordpress","tier":"mysql"}},"strategy":{"type":"Recreate"},"template":{"metadata":{"labels":{"app":"wordpress","tier":"mysql"}},"spec":{"containers":[{"env":[{"name":"MYSQL_ROOT_PASSWORD","valueFrom":{"secretKeyRef":{"key":"password.txt","name":"mysql-pass-97gbt5mbb6"}}}],"image":"mysql:5.6","name":"mysql","ports":[{"containerPort":3306,"name":"mysql"}],"volumeMounts":[{"mountPath":"/var/lib/mysql","name":"mysql-persistent-storage"}]}],"volumes":[{"name":"mysql-persistent-storage","persistentVolumeClaim":{"claimName":"mysql-pv-claim"}}]}}}}
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"fluxcd.io/sync-checksum":"3059d092e868bfe2363e6d2d29a68672c9983183"},"labels":{"app":"wordpress","fluxcd.io/sync-gc-mark":"sha256.sxNKmU0c-C416GFEdVEcVma9bQ11c94JFizvShWF52k"},"name":"wordpress-mysql","namespace":"default"},"spec":{"selector":{"matchLabels":{"app":"wordpress","tier":"mysql"}},"strategy":{"type":"Recreate"},"template":{"metadata":{"labels":{"app":"wordpress","tier":"mysql"}},"spec":{"containers":[{"env":[{"name":"MYSQL_ROOT_PASSWORD","valueFrom":{"secretKeyRef":{"key":"password.txt","name":"mysql-pass-97gbt5mbb6"}}}],"image":"mysql:5.6","name":"mysql","ports":[{"containerPort":3306,"name":"mysql"}],"volumeMounts":[{"mountPath":"/var/lib/mysql","name":"mysql-persistent-storage"}]}],"volumes":[{"name":"mysql-persistent-storage","persistentVolumeClaim":{"claimName":"mysql-pv-claim"}}]}}}}
+    creationTimestamp: "2020-12-29T14:53:53Z"
+    generation: 1
     labels:
       app: wordpress
+      fluxcd.io/sync-gc-mark: sha256.sxNKmU0c-C416GFEdVEcVma9bQ11c94JFizvShWF52k
     name: wordpress-mysql
     namespace: default
+    resourceVersion: "4919"
+    selfLink: /apis/apps/v1/namespaces/default/deployments/wordpress-mysql
+    uid: e6f11d06-aeba-4ea5-a35b-b0f8f8e6f55d
   spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
     selector:
       matchLabels:
         app: wordpress
@@ -64,6 +101,7 @@ items:
       type: Recreate
     template:
       metadata:
+        creationTimestamp: null
         labels:
           app: wordpress
           tier: mysql
@@ -76,28 +114,68 @@ items:
                 key: password.txt
                 name: mysql-pass-97gbt5mbb6
           image: mysql:5.6
+          imagePullPolicy: IfNotPresent
           name: mysql
           ports:
           - containerPort: 3306
             name: mysql
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
           volumeMounts:
           - mountPath: /var/lib/mysql
             name: mysql-persistent-storage
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
         volumes:
         - name: mysql-persistent-storage
           persistentVolumeClaim:
             claimName: mysql-pv-claim
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2020-12-29T14:53:53Z"
+      lastUpdateTime: "2020-12-29T14:57:31Z"
+      message: ReplicaSet "wordpress-mysql-7b5ddf8855" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2020-12-29T14:58:12Z"
+      lastUpdateTime: "2020-12-29T14:58:12Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
 - apiVersion: apps/v1
   kind: Deployment
   metadata:
     annotations:
+      deployment.kubernetes.io/revision: "1"
+      fluxcd.io/sync-checksum: 8d2c43b3171821a6dfb339da9d6bdb1a2b37d322
       kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"wordpress"},"name":"wordpress","namespace":"default"},"spec":{"selector":{"matchLabels":{"app":"wordpress","tier":"frontend"}},"strategy":{"type":"Recreate"},"template":{"metadata":{"labels":{"app":"wordpress","tier":"frontend"}},"spec":{"containers":[{"env":[{"name":"WORDPRESS_DB_HOST","value":"wordpress-mysql"},{"name":"WORDPRESS_DB_PASSWORD","valueFrom":{"secretKeyRef":{"key":"password.txt","name":"mysql-pass-97gbt5mbb6"}}}],"image":"wordpress:latest","name":"wordpress","ports":[{"containerPort":80,"name":"wordpress"}],"volumeMounts":[{"mountPath":"/var/www/html","name":"wordpress-persistent-storage"}]}],"volumes":[{"name":"wordpress-persistent-storage","persistentVolumeClaim":{"claimName":"wp-pv-claim"}}]}}}}
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{"fluxcd.io/sync-checksum":"8d2c43b3171821a6dfb339da9d6bdb1a2b37d322"},"labels":{"app":"wordpress","fluxcd.io/sync-gc-mark":"sha256.1UyLWynQnO204T0RkvZC0_e42naxQc87ESBJcI6XbWo"},"name":"wordpress","namespace":"default"},"spec":{"selector":{"matchLabels":{"app":"wordpress","tier":"frontend"}},"strategy":{"type":"Recreate"},"template":{"metadata":{"labels":{"app":"wordpress","tier":"frontend"}},"spec":{"containers":[{"env":[{"name":"WORDPRESS_DB_HOST","value":"wordpress-mysql"},{"name":"WORDPRESS_DB_PASSWORD","valueFrom":{"secretKeyRef":{"key":"password.txt","name":"mysql-pass-97gbt5mbb6"}}}],"image":"wordpress:latest","name":"wordpress","ports":[{"containerPort":80,"name":"wordpress"}],"volumeMounts":[{"mountPath":"/var/www/html","name":"wordpress-persistent-storage"}]}],"volumes":[{"name":"wordpress-persistent-storage","persistentVolumeClaim":{"claimName":"wp-pv-claim"}}]}}}}
+    creationTimestamp: "2020-12-29T14:53:52Z"
+    generation: 1
     labels:
       app: wordpress
+      fluxcd.io/sync-gc-mark: sha256.1UyLWynQnO204T0RkvZC0_e42naxQc87ESBJcI6XbWo
     name: wordpress
     namespace: default
+    resourceVersion: "4765"
+    selfLink: /apis/apps/v1/namespaces/default/deployments/wordpress
+    uid: f3fbb1e3-2223-42bf-9c51-c110c0d467db
   spec:
+    progressDeadlineSeconds: 600
+    replicas: 1
+    revisionHistoryLimit: 10
     selector:
       matchLabels:
         app: wordpress
@@ -106,6 +184,7 @@ items:
       type: Recreate
     template:
       metadata:
+        creationTimestamp: null
         labels:
           app: wordpress
           tier: frontend
@@ -120,82 +199,187 @@ items:
                 key: password.txt
                 name: mysql-pass-97gbt5mbb6
           image: wordpress:latest
+          imagePullPolicy: Always
           name: wordpress
           ports:
           - containerPort: 80
             name: wordpress
+            protocol: TCP
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
           volumeMounts:
           - mountPath: /var/www/html
             name: wordpress-persistent-storage
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
         volumes:
         - name: wordpress-persistent-storage
           persistentVolumeClaim:
             claimName: wp-pv-claim
+  status:
+    availableReplicas: 1
+    conditions:
+    - lastTransitionTime: "2020-12-29T14:56:27Z"
+      lastUpdateTime: "2020-12-29T14:56:27Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2020-12-29T14:53:53Z"
+      lastUpdateTime: "2020-12-29T14:56:27Z"
+      message: ReplicaSet "wordpress-5c54df94ff" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 1
+    readyReplicas: 1
+    replicas: 1
+    updatedReplicas: 1
 - apiVersion: v1
   kind: PersistentVolume
   metadata:
     annotations:
+      fluxcd.io/sync-checksum: 844b5a7c6f6eeafc39a2f28e38853b1b599a05d7
       kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"labels":{"type":"local"},"name":"local-volume-1"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"20Gi"},"hostPath":{"path":"/tmp/data/lv-1"},"persistentVolumeReclaimPolicy":"Recycle"}}
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"fluxcd.io/sync-checksum":"844b5a7c6f6eeafc39a2f28e38853b1b599a05d7"},"labels":{"fluxcd.io/sync-gc-mark":"sha256.rtODfZ58tC7O_xAYm5O62sm2CtuVSm_-ZM3ufaJgmZA","type":"local"},"name":"local-volume-1"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"20Gi"},"hostPath":{"path":"/tmp/data/lv-1"},"persistentVolumeReclaimPolicy":"Recycle"}}
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2020-12-29T14:53:50Z"
+    finalizers:
+    - kubernetes.io/pv-protection
     labels:
+      fluxcd.io/sync-gc-mark: sha256.rtODfZ58tC7O_xAYm5O62sm2CtuVSm_-ZM3ufaJgmZA
       type: local
     name: local-volume-1
+    resourceVersion: "4526"
+    selfLink: /api/v1/persistentvolumes/local-volume-1
+    uid: 70fb528d-5167-4b9e-8015-72760bb14428
   spec:
     accessModes:
     - ReadWriteOnce
     capacity:
       storage: 20Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: mysql-pv-claim
+      namespace: default
+      resourceVersion: "4524"
+      uid: e7978c7a-37c1-4c02-8712-78463931043d
     hostPath:
       path: /tmp/data/lv-1
+      type: ""
     persistentVolumeReclaimPolicy: Recycle
+    volumeMode: Filesystem
+  status:
+    phase: Bound
 - apiVersion: v1
   kind: PersistentVolume
   metadata:
     annotations:
+      fluxcd.io/sync-checksum: ebb1fd989103d3ffd5e23dc505fb3c602da8fc83
       kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{},"labels":{"type":"local"},"name":"local-volume-2"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"20Gi"},"hostPath":{"path":"/tmp/data/lv-2"},"persistentVolumeReclaimPolicy":"Recycle"}}
+        {"apiVersion":"v1","kind":"PersistentVolume","metadata":{"annotations":{"fluxcd.io/sync-checksum":"ebb1fd989103d3ffd5e23dc505fb3c602da8fc83"},"labels":{"fluxcd.io/sync-gc-mark":"sha256.7QT_SZZ4gF0U0aAJ9u5kV1wMyTxsqGXME2ubr0oNuSY","type":"local"},"name":"local-volume-2"},"spec":{"accessModes":["ReadWriteOnce"],"capacity":{"storage":"20Gi"},"hostPath":{"path":"/tmp/data/lv-2"},"persistentVolumeReclaimPolicy":"Recycle"}}
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2020-12-29T14:53:50Z"
+    finalizers:
+    - kubernetes.io/pv-protection
     labels:
+      fluxcd.io/sync-gc-mark: sha256.7QT_SZZ4gF0U0aAJ9u5kV1wMyTxsqGXME2ubr0oNuSY
       type: local
     name: local-volume-2
+    resourceVersion: "4531"
+    selfLink: /api/v1/persistentvolumes/local-volume-2
+    uid: 8d64234f-39bf-4820-885f-675f5b23af4e
   spec:
     accessModes:
     - ReadWriteOnce
     capacity:
       storage: 20Gi
+    claimRef:
+      apiVersion: v1
+      kind: PersistentVolumeClaim
+      name: wp-pv-claim
+      namespace: default
+      resourceVersion: "4528"
+      uid: 36888e0f-740e-4d90-9cd5-f84efb00bc5a
     hostPath:
       path: /tmp/data/lv-2
+      type: ""
     persistentVolumeReclaimPolicy: Recycle
+    volumeMode: Filesystem
+  status:
+    phase: Bound
 - apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
     annotations:
+      fluxcd.io/sync-checksum: 669e8c2a6d399eb177bea5f3615dbd4fb9b51e67
       kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"v1","kind":"PersistentVolumeClaim","metadata":{"annotations":{},"labels":{"app":"wordpress"},"name":"mysql-pv-claim","namespace":"default"},"spec":{"accessModes":["ReadWriteOnce"],"resources":{"requests":{"storage":"20Gi"}}}}
+        {"apiVersion":"v1","kind":"PersistentVolumeClaim","metadata":{"annotations":{"fluxcd.io/sync-checksum":"669e8c2a6d399eb177bea5f3615dbd4fb9b51e67"},"labels":{"app":"wordpress","fluxcd.io/sync-gc-mark":"sha256.SD502Ejl0ikD7otk4glmQihLM52vD_YzmGQNKfS2RG4"},"name":"mysql-pv-claim","namespace":"default"},"spec":{"accessModes":["ReadWriteOnce"],"resources":{"requests":{"storage":"20Gi"}}}}
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2020-12-29T14:53:52Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
     labels:
       app: wordpress
+      fluxcd.io/sync-gc-mark: sha256.SD502Ejl0ikD7otk4glmQihLM52vD_YzmGQNKfS2RG4
     name: mysql-pv-claim
     namespace: default
+    resourceVersion: "4529"
+    selfLink: /api/v1/namespaces/default/persistentvolumeclaims/mysql-pv-claim
+    uid: e7978c7a-37c1-4c02-8712-78463931043d
   spec:
     accessModes:
     - ReadWriteOnce
     resources:
       requests:
         storage: 20Gi
+    volumeMode: Filesystem
+    volumeName: local-volume-1
+  status:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 20Gi
+    phase: Bound
 - apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
     annotations:
+      fluxcd.io/sync-checksum: aaf45b7072128ba80a7db1a97838b2a21ba1f406
       kubectl.kubernetes.io/last-applied-configuration: |
-        {"apiVersion":"v1","kind":"PersistentVolumeClaim","metadata":{"annotations":{},"labels":{"app":"wordpress"},"name":"wp-pv-claim","namespace":"default"},"spec":{"accessModes":["ReadWriteOnce"],"resources":{"requests":{"storage":"20Gi"}}}}
+        {"apiVersion":"v1","kind":"PersistentVolumeClaim","metadata":{"annotations":{"fluxcd.io/sync-checksum":"aaf45b7072128ba80a7db1a97838b2a21ba1f406"},"labels":{"app":"wordpress","fluxcd.io/sync-gc-mark":"sha256.wvOpcHZfvs4j5XaFSnbMXV5eZgj45HDtSWL5NWpQvBA"},"name":"wp-pv-claim","namespace":"default"},"spec":{"accessModes":["ReadWriteOnce"],"resources":{"requests":{"storage":"20Gi"}}}}
+      pv.kubernetes.io/bind-completed: "yes"
+      pv.kubernetes.io/bound-by-controller: "yes"
+    creationTimestamp: "2020-12-29T14:53:52Z"
+    finalizers:
+    - kubernetes.io/pvc-protection
     labels:
       app: wordpress
+      fluxcd.io/sync-gc-mark: sha256.wvOpcHZfvs4j5XaFSnbMXV5eZgj45HDtSWL5NWpQvBA
     name: wp-pv-claim
     namespace: default
+    resourceVersion: "4533"
+    selfLink: /api/v1/namespaces/default/persistentvolumeclaims/wp-pv-claim
+    uid: 36888e0f-740e-4d90-9cd5-f84efb00bc5a
   spec:
     accessModes:
     - ReadWriteOnce
     resources:
       requests:
         storage: 20Gi
+    volumeMode: Filesystem
+    volumeName: local-volume-2
+  status:
+    accessModes:
+    - ReadWriteOnce
+    capacity:
+      storage: 20Gi
+    phase: Bound
 kind: List
 metadata: {}
